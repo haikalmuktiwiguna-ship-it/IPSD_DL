@@ -1,0 +1,22 @@
+Model          : model_1 | fold 5 | CLAHE ON
+Jumlah test    : 63 gambar
+Parameter      : 50,876
+Accuracy       : 0.5397
+Precision (macro): 0.4928
+Recall (macro) : 0.4521
+F1 (macro)     : 0.4545
+ROC-AUC (macro, OvR): 0.8002
+Waktu inferensi: 0.63 ms/gambar
+
+              precision    recall  f1-score   support
+
+  Chickenpox     0.4286    0.4286    0.4286         7
+      Cowpox     0.7500    0.4286    0.5455         7
+        HFMD     0.6471    0.7333    0.6875        15
+     Healthy     0.6667    0.4000    0.5000        10
+     Measles     0.0000    0.0000    0.0000         6
+   Monkeypox     0.4643    0.7222    0.5652        18
+
+    accuracy                         0.5397        63
+   macro avg     0.4928    0.4521    0.4545        63
+weighted avg     0.5235    0.5397    0.5128        63

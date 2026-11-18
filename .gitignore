@@ -1,0 +1,5 @@
+﻿# file yang tidak di-upload ke GitHub
+archive/
+Models_lama/
+__pycache__/
+*.pth

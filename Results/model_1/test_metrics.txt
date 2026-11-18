@@ -1,0 +1,21 @@
+Model          : model_1
+Jumlah test    : 74 gambar
+Parameter      : 50,876
+Accuracy       : 0.5135
+Precision (macro): 0.4523
+Recall (macro) : 0.4121
+F1 (macro)     : 0.4063
+Waktu inferensi: 0.78 ms/gambar
+
+              precision    recall  f1-score   support
+
+  Chickenpox     0.6667    0.2222    0.3333         9
+      Cowpox     0.6000    0.4286    0.5000         7
+        HFMD     0.3750    0.5625    0.4500        16
+     Healthy     0.4167    0.5556    0.4762         9
+     Measles     0.0000    0.0000    0.0000         6
+   Monkeypox     0.6552    0.7037    0.6786        27
+
+    accuracy                         0.5135        74
+   macro avg     0.4523    0.4121    0.4063        74
+weighted avg     0.5086    0.5135    0.4906        74
