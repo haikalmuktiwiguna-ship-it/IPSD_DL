@@ -1,28 +1,3 @@
-"""
-test.py
--------
-Menguji model yang sudah dilatih pada data TEST (data original, tidak diaugmentasi).
-Metrik: confusion matrix, accuracy, precision, recall, F1-score, ROC-AUC
-(precision/recall/F1/ROC-AUC dihitung macro = rata-rata 6 kelas).
-
-Contoh menjalankan (dari dalam folder Program):
-    python test.py --model 1                 # model 1, fold 1
-    python test.py --model 1 --fold 3        # model 1, fold 3
-    python test.py --model 1 --all-folds     # model 1, fold 1-5 + rata-rata
-    python test.py --compare                 # semua model, fold 1
-    python test.py --compare --all-folds     # semua model, fold 1-5 + rata-rata
-    (tombol Run tanpa argumen = --compare)
-
-Hasil per fold:
-    Results/model_X/foldN/test_metrics.txt
-    Results/model_X/foldN/confusion_matrix.png
-    Results/model_X/foldN/roc_curve.png
-Hasil gabungan (jika --all-folds):
-    Results/model_X/summary_folds.csv              -> metrik tiap fold + mean & std
-    Results/model_X/confusion_matrix_all_folds.png -> confusion matrix dijumlah 5 fold
-    Results/comparison.csv                         -> perbandingan antar model
-"""
-
 import argparse
 import csv
 import os
