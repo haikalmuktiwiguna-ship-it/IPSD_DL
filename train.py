@@ -1,26 +1,3 @@
-"""
-train.py
---------
-Melatih Model 1, 2, atau 3 pada dataset MSLD v2.0.
-
-Data training = Train original + Train augmented (sesuai ketentuan tugas).
-Validasi = Valid original, testing = Test original.
-
-Contoh menjalankan (dari dalam folder Program):
-    python train.py --model 1
-    python train.py --model 2 --epochs 30
-    python train.py --model 3                      # ConvNeXt-Tiny pretrained
-    python train.py --model 1 --original-only      # training tanpa Augmented Images
-    python train.py --model 2 --weighted-loss      # bobot kelas untuk data tidak seimbang
-    python train.py --model 1 --fold 3             # latih di fold 3 saja
-    python train.py --model 1 --all-folds          # latih di fold 1-5 (cross validation)
-
-Hasil:
-    Models/model_X_foldN_best.pth          -> bobot model terbaik (val acc tertinggi)
-    Results/model_X/foldN/history.csv      -> loss & akurasi tiap epoch
-    Results/model_X/foldN/training_curve.png
-"""
-
 import argparse
 import csv
 import os
@@ -148,6 +125,8 @@ def parse_args():
                    help="latih di fold 1 sampai 5 berurutan (5-fold cross validation)")
     p.add_argument("--original-only", action="store_true",
                    help="training hanya dengan Train original (default: original + augmented)")
+    p.add_argument("--no-clahe", action="store_true",
+                   help="matikan pre-processing CLAHE (default: CLAHE aktif)")
     p.add_argument("--epochs", type=int, default=25)
     p.add_argument("--batch-size", type=int, default=32)
     p.add_argument("--lr", type=float, default=None,
@@ -167,7 +146,8 @@ def train_one_fold(args, fold, device):
 
     data = Getdata(root=args.data, img_size=cfg["img_size"],
                    batch_size=args.batch_size, fold=fold,
-                   use_augmented=not args.original_only, seed=args.seed)
+                   use_augmented=not args.original_only,
+                   clahe=not args.no_clahe, seed=args.seed)
     train_loader, valid_loader, _ = data.get_loaders()
     data.summary()
 
@@ -183,7 +163,8 @@ def train_one_fold(args, fold, device):
     save_path = os.path.join(BASE_DIR, "Models", f"{cfg['name']}_fold{fold}_best.pth")
     trainer.fit(args.epochs, save_path, patience=args.patience,
                 extra_info={"classes": data.classes, "img_size": cfg["img_size"],
-                            "model_id": args.model, "fold": fold})
+                            "model_id": args.model, "fold": fold,
+                            "clahe": not args.no_clahe})
     out_dir = os.path.join(BASE_DIR, "Results", cfg["name"], f"fold{fold}")
     trainer.save_history(out_dir)
     print("Riwayat training disimpan di", out_dir)
